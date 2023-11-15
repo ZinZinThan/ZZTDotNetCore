@@ -113,7 +113,7 @@ namespace ZZTDotNetCore.ConsoleApp.DapperExamples
 
         private void Update(int id, string title, string author, string content)
         {
-            #region Create
+            #region Update
 
             BlogDataModel blog = new BlogDataModel
             {
