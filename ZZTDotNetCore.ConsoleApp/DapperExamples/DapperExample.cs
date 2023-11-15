@@ -27,8 +27,11 @@ namespace ZZTDotNetCore.ConsoleApp.DapperExamples
 
         public void Run()
         {
-            Read();
-            Edit(6);
+            //Read();
+            //Edit(6);
+            //Create("test 13","test 14","test 15");
+            //Update(6, "test 13", "test 14", "test 15");
+            //Delete(1003);
         }
 
         private void Read()
@@ -64,7 +67,7 @@ namespace ZZTDotNetCore.ConsoleApp.DapperExamples
             using IDbConnection db = new SqlConnection(sqlConnectionStringBuilder.ConnectionString);
             //BlogDataModel? item = db.Query<BlogDataModel>(query,new { Blog_Id = id }).FirstOrDefault();
             BlogDataModel? item = db.Query<BlogDataModel>(query, blog ).FirstOrDefault();
-
+            
             if (item is null)
             {
                 Console.WriteLine("No data found!");
@@ -76,6 +79,83 @@ namespace ZZTDotNetCore.ConsoleApp.DapperExamples
             Console.WriteLine(item.Blog_Author);
             Console.WriteLine(item.Blog_Content);
             
+            #endregion
+        }
+
+        private void Create(string title,string author,string content)
+        {
+            #region Create
+
+            BlogDataModel blog = new BlogDataModel
+            {
+                Blog_Title = title,
+                Blog_Author = author,
+                Blog_Content = content
+            };
+
+            string query = @"INSERT INTO [dbo].[Tbl_Blog]
+           ([Blog_Title]
+           ,[Blog_Author]
+           ,[Blog_Content])
+    VALUES
+           (@Blog_Title
+            ,@Blog_Author
+            ,@Blog_Content)";
+
+            using IDbConnection db = new SqlConnection(sqlConnectionStringBuilder.ConnectionString);
+            int result = db.Execute(query, blog);
+
+            string message = result > 0 ? "Saving Successful." : "Saving Failed.";
+            Console.WriteLine(message);
+
+            #endregion
+        }
+
+        private void Update(int id, string title, string author, string content)
+        {
+            #region Create
+
+            BlogDataModel blog = new BlogDataModel
+            {
+                Blog_Id = id,
+                Blog_Title = title,
+                Blog_Author = author,
+                Blog_Content = content
+            };
+
+            string query = @"UPDATE [dbo].[Tbl_Blog]
+     SET [Blog_Title] = @Blog_Title
+        ,[Blog_Author] = @Blog_Author
+        ,[Blog_Content] = @Blog_Content
+     WHERE Blog_Id = @Blog_Id";
+
+            using IDbConnection db = new SqlConnection(sqlConnectionStringBuilder.ConnectionString);
+            int result = db.Execute(query, blog);
+
+            string message = result > 0 ? "Update Successful." : "Update Failed.";
+            Console.WriteLine(message);
+
+            #endregion
+        }
+
+        private void Delete(int id)
+        {
+            #region Create
+
+            BlogDataModel blog = new BlogDataModel
+            {
+                Blog_Id = id
+            };
+
+            string query = @"DELETE FROM [dbo].[Tbl_Blog]
+        WHERE Blog_Id = @Blog_Id";
+
+            using IDbConnection db = new SqlConnection(sqlConnectionStringBuilder.ConnectionString);
+            int result = db.Execute(query, blog);
+
+            string message = result > 0 ? "Delete Successful." : "Delete Failed.";
+            Console.WriteLine(message);
+
             #endregion
         }
 

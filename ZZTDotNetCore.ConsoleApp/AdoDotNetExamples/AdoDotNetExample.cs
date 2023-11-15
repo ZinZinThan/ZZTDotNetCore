@@ -25,11 +25,11 @@ namespace ZZTDotNetCore.ConsoleApp.AdoDotNetExamples
         }
         public void Run()
         {
-            Read();
-            // Create("test 7", "test 8", "test 9");
-            Edit(5);
-            // Update(5, "test 10", "test 11", "test 12");
-            // Delete(7);
+            //Read();
+            //Create("test 7", "test 8", "test 9");
+            //Edit(5);
+            //Update(5, "test 10", "test 11", "test 12");
+            //Delete(7);
         }
 
         private void Read()
