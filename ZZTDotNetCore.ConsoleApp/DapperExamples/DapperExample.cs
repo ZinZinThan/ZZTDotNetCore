@@ -158,9 +158,5 @@ namespace ZZTDotNetCore.ConsoleApp.DapperExamples
 
             #endregion
         }
-
-
     }
-    
-    
 }
