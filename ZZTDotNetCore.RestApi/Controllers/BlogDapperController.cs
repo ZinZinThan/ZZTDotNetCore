@@ -79,13 +79,43 @@ namespace ZZTDotNetCore.RestApi.Controllers
             return Ok(model);
         }
 
+        //[HttpPut("{id}")]
+        //public IActionResult UpdateBlog(int id, BlogDataModel blog)
+        //{
+        //    string query = "select * from tbl_blog where Blog_Id=@Blog_Id";
+        //    using IDbConnection db = new SqlConnection(sqlConnectionStringBuilder.ConnectionString);
+        //    BlogDataModel? item = db.Query<BlogDataModel>(query, new BlogDataModel { Blog_Id = id }).FirstOrDefault();
+
+        //    if (item is null)
+        //    {
+        //        var response = new { IsSuccess = false, Message = "No data found." };
+        //        return NotFound(response);
+        //    }
+
+        //    query = @"UPDATE [dbo].[Tbl_Blog]
+        //            SET [Blog_Title] = @Blog_Title
+        //                ,[Blog_Author] = @Blog_Author
+        //                ,[Blog_Content] = @Blog_Content
+        //            WHERE Blog_Id = @Blog_Id";
+
+        //    using IDbConnection db2 = new SqlConnection(sqlConnectionStringBuilder.ConnectionString);
+        //    int result = db2.Execute(query, blog);
+
+        //    BlogResponseModel model = new BlogResponseModel
+        //    {
+        //        IsSuccess = result > 0,
+        //        Message = result > 0 ? "Update Successful." : "Updating Failed.",
+        //        Data = item
+        //    };
+        //    return Ok(model);
+        //}
+
         [HttpPut("{id}")]
         public IActionResult UpdateBlog(int id, BlogDataModel blog)
         {
-            string query = "select * from tbl_blog where Blog_Id=@Blog_Id";
+            string query = "select * from tbl_blog where Blog_Id = @Blog_Id";
             using IDbConnection db = new SqlConnection(sqlConnectionStringBuilder.ConnectionString);
             BlogDataModel? item = db.Query<BlogDataModel>(query, new BlogDataModel { Blog_Id = id }).FirstOrDefault();
-
             if (item is null)
             {
                 var response = new { IsSuccess = false, Message = "No data found." };
@@ -93,22 +123,23 @@ namespace ZZTDotNetCore.RestApi.Controllers
             }
 
             query = @"UPDATE [dbo].[Tbl_Blog]
-                    SET [Blog_Title] = @Blog_Title
-                        ,[Blog_Author] = @Blog_Author
-                        ,[Blog_Content] = @Blog_Content
-                    WHERE Blog_Id = @Blog_Id";
+                            SET [Blog_Title] = @Blog_Title
+                                ,[Blog_Author] = @Blog_Author
+                                ,[Blog_Content] = @Blog_Content
+                            WHERE Blog_Id = @Blog_Id";
 
             using IDbConnection db2 = new SqlConnection(sqlConnectionStringBuilder.ConnectionString);
-            int result = db2.Execute(query, new BlogDataModel { Blog_Id = id });
+            int result = db2.Execute(query, blog);
 
-            BlogResponseModel model = new BlogResponseModel
+            BlogResponseModel model = new BlogResponseModel()
             {
                 IsSuccess = result > 0,
-                Message = result > 0 ? "Update Successful." : "Updating Failed.",
+                Message = result > 0 ? "Updating Successful." : "Updating Failed.",
                 Data = item
             };
             return Ok(model);
         }
+
 
 
         [HttpPatch("{id}")]
@@ -154,7 +185,7 @@ namespace ZZTDotNetCore.RestApi.Controllers
                     WHERE Blog_Id = @Blog_Id";
 
             using IDbConnection db2 = new SqlConnection(sqlConnectionStringBuilder.ConnectionString);
-            int result = db2.Execute(query, new BlogDataModel { Blog_Id = id });
+            int result = db2.Execute(query, blog);
 
             BlogResponseModel model = new BlogResponseModel
             {
