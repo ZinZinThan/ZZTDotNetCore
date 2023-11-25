@@ -99,7 +99,7 @@ namespace ZZTDotNetCore.RestApi.Controllers
                     WHERE Blog_Id = @Blog_Id";
 
             using IDbConnection db2 = new SqlConnection(sqlConnectionStringBuilder.ConnectionString);
-            int result = db2.Execute(query, blog);
+            int result = db2.Execute(query, new BlogDataModel { Blog_Id = id });
 
             BlogResponseModel model = new BlogResponseModel
             {
@@ -109,6 +109,7 @@ namespace ZZTDotNetCore.RestApi.Controllers
             };
             return Ok(model);
         }
+
 
         [HttpPatch("{id}")]
         public IActionResult PatchBlog(int id, BlogDataModel blog)
@@ -153,7 +154,7 @@ namespace ZZTDotNetCore.RestApi.Controllers
                     WHERE Blog_Id = @Blog_Id";
 
             using IDbConnection db2 = new SqlConnection(sqlConnectionStringBuilder.ConnectionString);
-            int result = db2.Execute(query, blog);
+            int result = db2.Execute(query, new BlogDataModel { Blog_Id = id });
 
             BlogResponseModel model = new BlogResponseModel
             {

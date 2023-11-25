@@ -63,21 +63,42 @@ namespace ZZTDotNetCore.RestApi.Controllers
         [HttpGet("{id}")]
         public IActionResult GetBlog(int id)
         {
-            string query = "select * from tbl_blog where Blog_Id=@Blog_Id";
-            using IDbConnection db = new SqlConnection(sqlConnectionStringBuilder.ConnectionString);
-            BlogDataModel? item = db.Query<BlogDataModel>(query, new BlogDataModel { Blog_Id = id }).FirstOrDefault();
+            SqlConnection connection = new SqlConnection(sqlConnectionStringBuilder.ConnectionString);
+            connection.Open();
 
-            if (item is null)
+            string query = "select * from tbl_blog where Blog_Id=@Blog_Id";
+            SqlCommand cmd = new SqlCommand(query, connection);
+            cmd.Parameters.AddWithValue("@Blog_Id", id);
+
+            SqlDataAdapter adapter = new SqlDataAdapter(cmd);
+            DataTable dt = new DataTable();
+            adapter.Fill(dt);
+
+            connection.Close();
+
+            if (dt.Rows.Count == 0)
             {
                 var response = new { IsSuccess = false, Message = "No data found." };
                 return NotFound(response);
             }
+
+            DataRow row = dt.Rows[0];
+
+            BlogDataModel item = new BlogDataModel();
+            item.Blog_Id = Convert.ToInt32(row["Blog_Id"]);
+            item.Blog_Title = row["Blog_Title"].ToString();
+            item.Blog_Author = row["Blog_Title"].ToString();
+            item.Blog_Content = row["Blog_Content"].ToString();
+
             return Ok(item);
         }
 
         [HttpPost]
         public IActionResult CreateBlog(BlogDataModel blog)
         {
+            SqlConnection connection = new SqlConnection(sqlConnectionStringBuilder.ConnectionString);
+            connection.Open();
+
             string query = @"INSERT INTO [dbo].[Tbl_Blog]
            ([Blog_Title]
            ,[Blog_Author]
@@ -87,8 +108,13 @@ namespace ZZTDotNetCore.RestApi.Controllers
             ,@Blog_Author
             ,@Blog_Content)";
 
-            using IDbConnection db = new SqlConnection(sqlConnectionStringBuilder.ConnectionString);
-            int result = db.Execute(query, blog);
+            SqlCommand cmd = new SqlCommand(query, connection);
+            cmd.Parameters.AddWithValue("@Blog_Title", blog.Blog_Title);
+            cmd.Parameters.AddWithValue("@Blog_Author", blog.Blog_Author);
+            cmd.Parameters.AddWithValue("@Blog_Content", blog.Blog_Content);
+            int result = cmd.ExecuteNonQuery();
+
+            connection.Close();
 
             BlogResponseModel model = new BlogResponseModel
             {
