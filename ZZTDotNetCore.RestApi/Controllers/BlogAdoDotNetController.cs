@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using System.Data;
 using System.Data.SqlClient;
 using ZZTDotNetCore.RestApi.Models;
+using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
 
 namespace ZZTDotNetCore.RestApi.Controllers
 {
@@ -17,10 +18,15 @@ namespace ZZTDotNetCore.RestApi.Controllers
         {
             sqlConnectionStringBuilder = new SqlConnectionStringBuilder
             {
-                DataSource = "DESKTOP-2RCKCTJ\\SQLSERVER",
+                DataSource = "DESKTOP-TVK5D53\\SQL2022",
                 InitialCatalog = "DotNetCore",
                 UserID = "sa",
-                Password = "sasa"
+                Password = "@visible1",
+
+                //DataSource = "DESKTOP-2RCKCTJ\\SQLSERVER",
+                //InitialCatalog = "DotNetCore",
+                //UserID = "sa",
+                //Password = "sasa"
             };
         }
         
@@ -125,7 +131,46 @@ namespace ZZTDotNetCore.RestApi.Controllers
             return Ok(model);
         }
 
-        
+        [HttpDelete("{id}")]
+        public IActionResult DeleteBlog(int id)
+        {
+            SqlConnection connection = new SqlConnection(sqlConnectionStringBuilder.ConnectionString);
+            connection.Open();
+
+            string query = "select * from tbl_blog where Blog_Id=@Blog_Id";
+            SqlCommand cmd = new SqlCommand(query, connection);
+            cmd.Parameters.AddWithValue("@Blog_Id", id);
+
+            SqlDataAdapter adapter = new SqlDataAdapter(cmd);
+            DataTable dt = new DataTable();
+            adapter.Fill(dt);
+
+            connection.Close();
+
+            if (dt.Rows.Count == 0)
+            {
+                var response = new { IsSuccess = false, Message = "No data found." };
+                return NotFound(response);
+            }
+
+            connection.Open();
+
+            query = @"DELETE FROM [dbo].[Tbl_Blog]
+                      WHERE Blog_Id = @Blog_Id" ;
+
+            SqlCommand command = new SqlCommand(query, connection);
+            command.Parameters.AddWithValue("@Blog_Id", id);
+            int result = command.ExecuteNonQuery();
+
+            connection.Close();
+             
+            BlogResponseModel model = new BlogResponseModel
+            {
+                IsSuccess = result > 0,
+                Message = result > 0 ? "Deleting Successful." : "Deleting Failed."
+            };
+            return Ok(model);
+        }
 
     }
 }
