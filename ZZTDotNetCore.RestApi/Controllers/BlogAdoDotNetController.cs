@@ -30,7 +30,6 @@ namespace ZZTDotNetCore.RestApi.Controllers
                 //Password = "sasa"
             };
         }
-        
 
         [HttpGet]
         public IActionResult GetBlogs()
@@ -175,6 +174,76 @@ namespace ZZTDotNetCore.RestApi.Controllers
             {
                 IsSuccess = result > 0,
                 Message = result > 0 ? "Saving Successful." : "Saving Failed.",
+                Data = blog
+            };
+            return Ok(model);
+        }
+
+        [HttpPatch("{id}")]
+        public IActionResult PatchBlog(int id, BlogDataModel blog)
+        {
+            SqlConnection connection = new SqlConnection(sqlConnectionStringBuilder.ConnectionString);
+            connection.Open();
+
+            string query = "select * from tbl_blog where Blog_Id=@Blog_Id";
+            SqlCommand cmd = new SqlCommand(query, connection);
+            cmd.Parameters.AddWithValue("@Blog_Id", id);
+
+            SqlDataAdapter adapter = new SqlDataAdapter(cmd);
+            DataTable dt = new DataTable();
+            adapter.Fill(dt);
+
+            connection.Close();
+
+            if (dt.Rows.Count == 0)
+            {
+                var response = new { IsSuccess = false, Message = "No data found." };
+                return NotFound(response);
+            }
+
+            connection.Open();
+
+            SqlCommand command = new SqlCommand();
+            string conditions = "";
+
+            if (!string.IsNullOrEmpty(blog.Blog_Title))
+            {
+                conditions += " [Blog_Title] = @Blog_Title, ";
+                command.Parameters.AddWithValue("@Blog_Title", blog.Blog_Title);
+            }
+            if (!string.IsNullOrEmpty(blog.Blog_Author))
+            {
+                conditions += " [Blog_Author] = @Blog_Author, ";
+                command.Parameters.AddWithValue("@Blog_Author", blog.Blog_Author);
+            }
+            if (!string.IsNullOrEmpty(blog.Blog_Content))
+            {
+                conditions += " [Blog_Content] = @Blog_Content, ";
+                command.Parameters.AddWithValue("@Blog_Content", blog.Blog_Content);
+            }
+            if (conditions.Length == 0)
+            {
+                var response = new { IsSuccess = false, Message = "No data to update." };
+                return NotFound(response);
+            }
+
+            conditions = conditions.Substring(0, conditions.Length - 2);
+
+            query = $@"UPDATE [dbo].[Tbl_Blog]
+                    SET {conditions}
+                    WHERE Blog_Id = @Blog_Id";
+
+            command.CommandText = query;
+            command.Parameters.AddWithValue("@Blog_Id", id);
+            command.Connection = connection;
+            int result = command.ExecuteNonQuery();
+
+            connection.Close();
+
+            BlogResponseModel model = new BlogResponseModel
+            {
+                IsSuccess = result > 0,
+                Message = result > 0 ? "Update Successful." : "Updating Failed.",
                 Data = blog
             };
             return Ok(model);
