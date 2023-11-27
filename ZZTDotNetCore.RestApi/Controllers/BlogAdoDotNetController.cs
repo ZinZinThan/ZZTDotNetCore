@@ -5,6 +5,7 @@ using System.Data;
 using System.Data.SqlClient;
 using ZZTDotNetCore.RestApi.Models;
 using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
+using static Microsoft.EntityFrameworkCore.DbLoggerCategory.Database;
 
 namespace ZZTDotNetCore.RestApi.Controllers
 {
@@ -115,6 +116,54 @@ namespace ZZTDotNetCore.RestApi.Controllers
             ,@Blog_Content)";
 
             SqlCommand cmd = new SqlCommand(query, connection);
+            cmd.Parameters.AddWithValue("@Blog_Title", blog.Blog_Title);
+            cmd.Parameters.AddWithValue("@Blog_Author", blog.Blog_Author);
+            cmd.Parameters.AddWithValue("@Blog_Content", blog.Blog_Content);
+            int result = cmd.ExecuteNonQuery();
+
+            connection.Close();
+
+            BlogResponseModel model = new BlogResponseModel
+            {
+                IsSuccess = result > 0,
+                Message = result > 0 ? "Saving Successful." : "Saving Failed.",
+                Data = blog
+            };
+            return Ok(model);
+        }
+
+        [HttpPut("{id}")]
+        public IActionResult UpdateBlog(int id, BlogDataModel blog)
+        {
+            SqlConnection connection = new SqlConnection(sqlConnectionStringBuilder.ConnectionString);
+            connection.Open();
+
+            string query = "select * from tbl_blog where Blog_Id=@Blog_Id";
+
+            SqlCommand cmd = new SqlCommand(query, connection);
+            cmd.Parameters.AddWithValue("@Blog_Id", id);
+            SqlDataAdapter adapter = new SqlDataAdapter(cmd);
+            DataTable dt = new DataTable();
+            adapter.Fill(dt);
+
+            connection.Close();
+
+            if (dt.Rows.Count == 0)
+            {
+                var response = new { IsSuccess = false, Message = "No data found." };
+                return NotFound(response);
+            }
+
+            connection.Open();
+
+            query = @"UPDATE [dbo].[Tbl_Blog]
+                    SET [Blog_Title] = @Blog_Title
+                        ,[Blog_Author] = @Blog_Author
+                        ,[Blog_Content] = @Blog_Content
+                    WHERE Blog_Id = @Blog_Id";
+
+            cmd = new SqlCommand(query, connection);
+            cmd.Parameters.AddWithValue("@Blog_Id", id);
             cmd.Parameters.AddWithValue("@Blog_Title", blog.Blog_Title);
             cmd.Parameters.AddWithValue("@Blog_Author", blog.Blog_Author);
             cmd.Parameters.AddWithValue("@Blog_Content", blog.Blog_Content);
