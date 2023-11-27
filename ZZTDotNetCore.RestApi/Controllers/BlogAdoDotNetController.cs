@@ -234,8 +234,8 @@ namespace ZZTDotNetCore.RestApi.Controllers
                     WHERE Blog_Id = @Blog_Id";
 
             command.CommandText = query;
-            command.Parameters.AddWithValue("@Blog_Id", id);
             command.Connection = connection;
+            command.Parameters.AddWithValue("@Blog_Id", id);
             int result = command.ExecuteNonQuery();
 
             connection.Close();
