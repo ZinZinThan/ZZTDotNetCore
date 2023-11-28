@@ -135,7 +135,7 @@ namespace ZZTDotNetCore.RestApi.Controllers
             {
                 IsSuccess = result > 0,
                 Message = result > 0 ? "Updating Successful." : "Updating Failed.",
-                Data = item
+                Data = blog
             };
             return Ok(model);
         }
@@ -213,7 +213,7 @@ namespace ZZTDotNetCore.RestApi.Controllers
                       WHERE Blog_Id = @Blog_Id";
 
             using IDbConnection db2 = new SqlConnection(sqlConnectionStringBuilder.ConnectionString);
-            int result = db.Execute(query, new BlogDataModel { Blog_Id = id });
+            int result = db2.Execute(query, new BlogDataModel { Blog_Id = id });
             BlogResponseModel model = new BlogResponseModel
             {
                 IsSuccess = result > 0,
