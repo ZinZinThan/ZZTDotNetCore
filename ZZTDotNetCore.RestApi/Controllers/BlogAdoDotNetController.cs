@@ -19,15 +19,15 @@ namespace ZZTDotNetCore.RestApi.Controllers
         {
             sqlConnectionStringBuilder = new SqlConnectionStringBuilder
             {
-                DataSource = "DESKTOP-TVK5D53\\SQL2022",
-                InitialCatalog = "DotNetCore",
-                UserID = "sa",
-                Password = "@visible1",
-
-                //DataSource = "DESKTOP-2RCKCTJ\\SQLSERVER",
+                //DataSource = "DESKTOP-TVK5D53\\SQL2022",
                 //InitialCatalog = "DotNetCore",
                 //UserID = "sa",
-                //Password = "sasa"
+                //Password = "@visible1",
+
+                DataSource = "DESKTOP-2RCKCTJ\\SQLSERVER",
+                InitialCatalog = "DotNetCore",
+                UserID = "sa",
+                Password = "sasa"
             };
         }
 
@@ -52,7 +52,7 @@ namespace ZZTDotNetCore.RestApi.Controllers
                 BlogDataModel item = new BlogDataModel();
                 item.Blog_Id = Convert.ToInt32( row["Blog_Id"]);
                 item.Blog_Title = row["Blog_Title"].ToString();
-                item.Blog_Author = row["Blog_Title"].ToString();
+                item.Blog_Author = row["Blog_Author"].ToString();
                 item.Blog_Content = row["Blog_Content"].ToString();
                 lst.Add(item);
 
@@ -93,7 +93,7 @@ namespace ZZTDotNetCore.RestApi.Controllers
             BlogDataModel item = new BlogDataModel();
             item.Blog_Id = Convert.ToInt32(row["Blog_Id"]);
             item.Blog_Title = row["Blog_Title"].ToString();
-            item.Blog_Author = row["Blog_Title"].ToString();
+            item.Blog_Author = row["Blog_Author"].ToString();
             item.Blog_Content = row["Blog_Content"].ToString();
 
             return Ok(item);
