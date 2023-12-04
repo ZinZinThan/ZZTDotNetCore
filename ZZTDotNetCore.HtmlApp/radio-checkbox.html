@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/icheck-bootstrap/3.0.1/icheck-bootstrap.min.css"
+      integrity="sha512-8vq2g5nHE062j3xor4XxPeZiPjmRDh6wlufQlfC6pdQ/9urJkU07NM0tEREeymP++NczacJ/Q59ul+/K2eYvcg=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+  </head>
+  <body>
+    <div class="icheck-default">
+      <input type="checkbox" id="someCheckboxId" />
+      <label for="someCheckboxId">Click Me</label>
+    </div>
+    <button type="button" id="btnSubmit">Submit</button>
+
+    <div class="icheck-primary">
+      <input type="radio" id="someRadioId1" name="someGroupName" value="Apple" />
+      <label for="someRadioId1">Apple</label>
+    </div>
+    <div class="icheck-info">
+      <input type="radio" id="someRadioId2" name="someGroupName" value="Banana" />
+      <label for="someRadioId2">Banana</label>
+    </div>
+    <button type="button" id="btnClick">Click</button>
+    <script
+      src="https://code.jquery.com/jquery-3.7.1.min.js"
+      integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo="
+      crossorigin="anonymous"
+    ></script>
+    <script>
+      $("#btnSubmit").click(function () {
+        console.log($("#someCheckboxId").is(':checked'));
+      });
+
+      $("#btnClick").click(function () {
+        console.log($("input[name='someGroupName']:checked").val());
+      });
+    </script>
+  </body>
+</html>
