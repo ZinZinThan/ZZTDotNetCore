@@ -5,17 +5,15 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Blog</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
-        integrity="sha512-Avb2QiuDEEvB4bZJYdft2mNjVShBftLdPG8FJ0V7irTLQ8Uo0qcPxh4Plq7G5tGm0rU+1SPhVotteLpBERwTkw=="
-        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" integrity="sha512-Avb2QiuDEEvB4bZJYdft2mNjVShBftLdPG8FJ0V7irTLQ8Uo0qcPxh4Plq7G5tGm0rU+1SPhVotteLpBERwTkw==" crossorigin="anonymous" referrerpolicy="no-referrer"
+    />
     <link rel="stylesheet" href="plugins/datepicker-1.0.10/datepicker.min.css" />
     <style>
         .form-group {
             margin-bottom: 20px;
         }
-
+        
         .btn-container {
             margin-top: 20px;
         }
@@ -47,16 +45,26 @@
             <div class="form-group col-md-8">
                 <label for="blogTypes" class="form-label">Types of Blogs</label>
                 <div class="icheck-primary">
-                    <input type="checkbox" id="foodCheckbox" class="form-check-input">
-                    <label for="foodCheckbox" class="form-check-label">Food blogs</label>
-                    <input type="checkbox" id="travelCheckbox" class="form-check-input">
-                    <label for="travelCheckbox" class="form-check-label">Travel blogs</label>
-                    <input type="checkbox" id="personalCheckbox" class="form-check-input">
-                    <label for="personalCheckbox" class="form-check-label">Personal blogs</label>
-                    <input type="checkbox" id="lifestyleCheckbox" class="form-check-input">
-                    <label for="lifestyleCheckbox" class="form-check-label">Lifestyle blogs</label>
-                    <input type="checkbox" id="sportsCheckbox" class="form-check-input">
-                    <label for="sportsCheckbox" class="form-check-label">Sports blogs</label>
+                    <input type="checkbox" id="foodCheckbox" class="form-check-input" value="Food
+                    blogs">
+                    <label for="foodCheckbox" class="form-check-label">Food
+                            blogs</label>
+                    <input type="checkbox" id="travelCheckbox" class="form-check-input" value="Travel
+                    blogs">
+                    <label for="travelCheckbox" class="form-check-label">Travel
+                            blogs</label>
+                    <input type="checkbox" id="personalCheckbox" class="form-check-input" value="Personal
+                    blogs">
+                    <label for="personalCheckbox" class="form-check-label">Personal
+                            blogs</label>
+                    <input type="checkbox" id="lifestyleCheckbox" class="form-check-input" value="Lifestyle
+                    blogs">
+                    <label for="lifestyleCheckbox" class="form-check-label">Lifestyle
+                            blogs</label>
+                    <input type="checkbox" id="sportsCheckbox" class="form-check-input" value="Sports
+                    blogs">
+                    <label for="sportsCheckbox" class="form-check-label">Sports
+                            blogs</label>
                 </div>
             </div>
             <div class="form-group col-md-4">
@@ -93,24 +101,20 @@
         </tbody>
     </table>
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"
-        integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g=="
-        crossorigin="anonymous" referrerpolicy="no-referrer">
-        </script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous">
-        </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g==" crossorigin="anonymous" referrerpolicy="no-referrer">
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous">
+    </script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="js/custom.js"></script>
-    <script src="https://code.jquery.com/jquery-3.7.1.min.js"
-        integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
     <script src="plugins/datepicker-1.0.10/datepicker.min.js"></script>
     <script>
         var _blogId = "";
         readBlog();
         getBlogs();
 
-        $("#btnSave").click(function () {
+        $("#btnSave").click(function() {
             if (_blogId !== undefined && _blogId !== null && _blogId !== '') {
                 updateBlog();
             } else {
@@ -118,13 +122,13 @@
             }
         })
 
-        function clearData(){
+        function clearData() {
             $("#txtTitle").val("");
             $("#txtAuthor").val("");
             $("#txtContent").val("");
             $("#txtDate").val("");
             $('input[type=checkbox]').prop('checked', false);
-            $("input[name='someGroupName']").prop('checked',false);
+            $("input[name='someGroupName']").prop('checked', false);
         }
 
         function getBlogs() {
@@ -138,11 +142,16 @@
         }
 
         function saveBlog() {
+            var type = [];
             const title = $("#txtTitle").val();
             const author = $("#txtAuthor").val();
             const content = $("#txtContent").val();
             const date = $("#txtDate").val();
-            const type = $("input[type='checkbox']").val();
+
+            $('.form-check-input:checked').each(function() {
+                type.push($(this).val());
+            });
+
             const status = $("input[name='someGroupName']:checked").val();
 
             var blogs = getBlogs();
@@ -173,7 +182,11 @@
             const author = $("#txtAuthor").val();
             const content = $("#txtContent").val();
             const date = $("#txtDate").val();
-            const type = $("input[type='checkbox']").val();
+
+            $('.form-check-input:checked').each(function() {
+                type.push($(this).val());
+            });
+
             const status = $("input[name='someGroupName']:checked").val();
 
             var blogs = getBlogs();
@@ -183,9 +196,9 @@
             users[blogIndex].Author = author;
             users[blogIndex].Content = content;
             users[blogIndex].Date = date;
-            users[blogIndex].Type = title;
+            users[blogIndex].Type = type;
             users[blogIndex].Status = status;
-            
+
             localStorage.setItem("tbl_blog", JSON.stringify(blogs));
 
             successMessage("Update Successful!");
@@ -202,7 +215,7 @@
             blogs = JSON.parse(blogs);
 
             let htmlString = '';
-            $.each(blogs, function (index, value) {
+            $.each(blogs, function(index, value) {
                 console.log(index + ": " + value.Title);
 
                 htmlString += `
@@ -241,10 +254,14 @@
             $("#txtAuthor").val(blog.Author);
             $("#txtContent").val(blog.Content);
             $("#txtDate").val(blog.Date);
-            $("#txtType").val(blog.Type);
-            
-            $("input[name='someGroupName']:checked").val(blog.Status);
-            
+
+
+            if (blog.Status == "Published") {
+                $("#someRadioId2").prop("checked", true);
+            } else {
+                $("#someRadioId1").prop("checked", true);
+            }
+
             _userId = user.BlogId;
         }
 
@@ -279,7 +296,7 @@
             format: 'dd-mm-yyyy'
         });
 
-        $('#btnSubmit').click(function () {
+        $('#btnSubmit').click(function() {
             console.log($('#txtDate').val());
         })
     </script>
