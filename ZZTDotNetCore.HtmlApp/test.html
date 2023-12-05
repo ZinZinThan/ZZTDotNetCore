@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blog</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+        integrity="sha512-Avb2QiuDEEvB4bZJYdft2mNjVShBftLdPG8FJ0V7irTLQ8Uo0qcPxh4Plq7G5tGm0rU+1SPhVotteLpBERwTkw=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="plugins/datepicker-1.0.10/datepicker.min.css" />
+    <style>
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .btn-container {
+            margin-top: 20px;
+        }
+    </style>
+</head>
+
+<body>
+    <div>
+        <h2 class="nav justify-content-center">Welcome to My Blog</h2>
+    </div>
+    <div class="container">
+        <form>
+            <div class="form-group col-md-4">
+                <label for="txtTitle" class="form-label">Blog Title</label>
+                <input type="text" class="form-control" id="txtTitle">
+            </div>
+            <div class="form-group col-md-4">
+                <label for="txtAuthor" class="form-label">Blog Author</label>
+                <input type="text" class="form-control" id="txtAuthor">
+            </div>
+            <div class="form-group col-md-4">
+                <label for="txtContent" class="form-label">Blog Content</label>
+                <input type="text" class="form-control" id="txtContent">
+            </div>
+            <div class="form-group col-md-4">
+                <label for="txtDate" class="form-label">Publish Date</label>
+                <input type="text" class="form-control" id="txtDate">
+            </div>
+            <div class="form-group col-md-8">
+                <label for="blogTypes" class="form-label">Types of Blogs</label>
+                <div class="icheck-primary">
+                    <input type="checkbox" id="foodCheckbox" class="form-check-input">
+                    <label for="foodCheckbox" class="form-check-label">Food blogs</label>
+                    <input type="checkbox" id="travelCheckbox" class="form-check-input">
+                    <label for="travelCheckbox" class="form-check-label">Travel blogs</label>
+                    <input type="checkbox" id="personalCheckbox" class="form-check-input">
+                    <label for="personalCheckbox" class="form-check-label">Personal blogs</label>
+                    <input type="checkbox" id="lifestyleCheckbox" class="form-check-input">
+                    <label for="lifestyleCheckbox" class="form-check-label">Lifestyle blogs</label>
+                    <input type="checkbox" id="sportsCheckbox" class="form-check-input">
+                    <label for="sportsCheckbox" class="form-check-label">Sports blogs</label>
+                </div>
+            </div>
+            <div class="form-group col-md-4">
+                <label class="form-label">Published</label>
+                <div class="icheck-primary">
+                    <input type="radio" id="someRadioId1" name="someGroupName" value="Not Publish" />
+                    <label for="someRadioId1">Not Publish</label>
+                </div>
+                <div class="icheck-primary">
+                    <input type="radio" id="someRadioId2" name="someGroupName" value="Published" />
+                    <label for="someRadioId2">Published</label>
+                </div>
+            </div>
+            <div class="btn-container">
+                <button type="button" class="btn btn-secondary mr-2" id="btnCancel" onclick="clearData()">Cancel</button>
+                <button type="button" class="btn btn-success" id="btnSave">Save</button>
+            </div>
+        </form>
+    </div>
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Title</th>
+                <th scope="col">Author</th>
+                <th scope="col">Content</th>
+                <th scope="col">Publish Date</th>
+                <th scope="col">Type</th>
+                <th scope="col">Publish Status</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody id="tbTbody">
+        </tbody>
+    </table>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"
+        integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g=="
+        crossorigin="anonymous" referrerpolicy="no-referrer">
+        </script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous">
+        </script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="js/custom.js"></script>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"
+        integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+    <script src="plugins/datepicker-1.0.10/datepicker.min.js"></script>
+    <script>
+        var _blogId = "";
+        readBlog();
+        getBlogs();
+
+        $("#btnSave").click(function () {
+            if (_blogId !== undefined && _blogId !== null && _blogId !== '') {
+                updateBlog();
+            } else {
+                saveBlog();
+            }
+        })
+
+        function clearData(){
+            $("#txtTitle").val("");
+            $("#txtAuthor").val("");
+            $("#txtContent").val("");
+            $("#txtDate").val("");
+            $('input[type=checkbox]').prop('checked', false);
+            $("input[name='someGroupName']").prop('checked',false);
+        }
+
+        function getBlogs() {
+            var blogs = localStorage.getItem("tbl_blog");
+            if (blogs === undefined || blogs === null) {
+                blogs = [];
+            } else {
+                blogs = JSON.parse(blogs);
+            }
+            return blogs;
+        }
+
+        function saveBlog() {
+            const title = $("#txtTitle").val();
+            const author = $("#txtAuthor").val();
+            const content = $("#txtContent").val();
+            const date = $("#txtDate").val();
+            const type = $("input[type='checkbox']").val();
+            const status = $("input[name='someGroupName']:checked").val();
+
+            var blogs = getBlogs();
+
+            const blog = {
+                BlogId: uuidv4(),
+                Title: title,
+                Author: author,
+                Content: content,
+                Date: date,
+                Type: type,
+                Status: status
+            };
+
+            blogs.push(blog);
+
+            localStorage.setItem("tbl_blog", JSON.stringify(blogs));
+
+            successMessage("Saving Successful!");
+
+            clearData();
+
+            readBlog();
+        }
+
+        function updateBlog() {
+            const title = $("#txtTitle").val();
+            const author = $("#txtAuthor").val();
+            const content = $("#txtContent").val();
+            const date = $("#txtDate").val();
+            const type = $("input[type='checkbox']").val();
+            const status = $("input[name='someGroupName']:checked").val();
+
+            var blogs = getBlogs();
+
+            let blogIndex = blogs.findIndex(x => x.BlogId == _blogId);
+            users[blogIndex].Title = title;
+            users[blogIndex].Author = author;
+            users[blogIndex].Content = content;
+            users[blogIndex].Date = date;
+            users[blogIndex].Type = title;
+            users[blogIndex].Status = status;
+            
+            localStorage.setItem("tbl_blog", JSON.stringify(blogs));
+
+            successMessage("Update Successful!");
+
+            clearData();
+
+            readBlog();
+        }
+
+        function readBlog() {
+            $("#tbTbody").html('');
+
+            var blogs = localStorage.getItem("tbl_blog");
+            blogs = JSON.parse(blogs);
+
+            let htmlString = '';
+            $.each(blogs, function (index, value) {
+                console.log(index + ": " + value.Title);
+
+                htmlString += `
+            <tr>
+                <td>${index + 1}</td>
+                <td>${value.Title}</td>
+                <td>${value.Author}</td>
+                <td>${value.Content}</td>
+                <td>${value.Date}</td>
+                <td>${value.Type}</td>
+                <td>${value.Status}</td>
+                <td>
+                    <buttom type="buttom" class="btn btn-warning" onclick="editBlog('${value.BlogId}')">
+                        <i class="fa-solid fa-pen-to-square"></i>
+                    </buttom>
+                    <buttom type="buttom" class="btn btn-danger" onclick="deleteBlog('${value.BlogId}')">
+                        <i class="fa-solid fa-trash"></i>
+                    </buttom>
+                </td>
+            </tr>`
+            });
+
+            $("#tbTbody").html(htmlString);
+        }
+
+        function editBlog(blogId) {
+            var blogs = getBlogs();
+            var blog = blogs.filter(x => x.BlogId == blogId)[0];
+
+            if (blog === undefined || blog === null) {
+                warningMessage("No data found!");
+                return;
+            }
+
+            $("#txtTitle").val(blog.Title);
+            $("#txtAuthor").val(blog.Author);
+            $("#txtContent").val(blog.Content);
+            $("#txtDate").val(blog.Date);
+            $("#txtType").val(blog.Type);
+            
+            $("input[name='someGroupName']:checked").val(blog.Status);
+            
+            _userId = user.BlogId;
+        }
+
+        function deleteBlog(blogId) {
+            confirmMessage("Are you sure want to delete?").then((result) => {
+                if (!result) return;
+
+                _blogId = blogId;
+
+                let blogs = getBlogs();
+                let blog = blogs.filter((x) => x.BlogId == _blogId)[0];
+
+                if (blog === undefined || blog === null) {
+                    warningMessage("No data found!");
+                    return;
+                }
+
+                blogs = blogs.filter((x) => x.BlogId !== blog.BlogId);
+
+                localStorage.setItem("tbl_blog", JSON.stringify(blogs));
+
+                successMessage("Deleting Successful!");
+
+                _blogId = null;
+                clearData();
+                readBlog();
+            });
+        }
+
+        $('#txtDate').datepicker({
+            autoHide: true,
+            format: 'dd-mm-yyyy'
+        });
+
+        $('#btnSubmit').click(function () {
+            console.log($('#txtDate').val());
+        })
+    </script>
+</body>
+
+</html>
