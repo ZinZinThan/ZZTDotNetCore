@@ -21,13 +21,36 @@ namespace ZZTDotNetCore.MvcApp.Controllers
             return View("BlogIndex", lst);
         }
 
-        [ActionName("Create")]
-        public IActionResult BlogCreate()
-        {
-            return View("BlogCreate");
-        }
+		[ActionName("List")]
+		public async Task<IActionResult> BlogList(int pageNo = 1, int pageSize =5)
+		{
+            BlogDataResponseModel model = new BlogDataResponseModel();
 
-        [HttpPost]
+			List<BlogDataModel> lst = _context.Blogs.AsNoTracking()
+                .Skip((pageNo-1) * pageSize)
+                .Take(pageSize)
+                .ToList();
+
+            int rowCount = await _context.Blogs.CountAsync();
+            int pageCount = rowCount / pageSize;
+            if( rowCount % pageSize > 0)
+            {
+                pageCount++;
+            }
+
+            model.Blogs = lst;
+            model.PageSetting = new PageSettingModel(pageNo, pageSize, pageCount, "/blog/list");
+
+			return View("BlogList", model);
+		}
+
+		[ActionName("Create")]
+		public IActionResult BlogCreate()
+		{
+			return View("BlogCreate");
+		}
+
+		[HttpPost]
         [ActionName("Save")]
         public async Task<IActionResult> BlogSave(BlogDataModel reqModel)
         {
