@@ -16,7 +16,7 @@
     int count = (pageNo - 1) * pageSize;
 }
 <h4>
-    <a href="/blog/create" class="btn btn-success"><i class="fa-solid fa-plus"></i></a> Blog List
+    <a href="/blogajax/create" class="btn btn-success"><i class="fa-solid fa-plus"></i></a> Blog List
 </h4>
 
 @if (message is not null)
@@ -45,10 +45,10 @@
                 <td>@item.Blog_Author</td>
                 <td>@item.Blog_Content</td>
                 <td>
-                    <a class="btn btn-warning" href="/blog/edit/@item.Blog_Id">
+                    <a class="btn btn-warning" href="/blogajax/edit/@item.Blog_Id">
                         <i class="fa-solid fa-pen-to-square"></i>
                     </a>
-                    <a class="btn btn-danger" href="/blog/delete/@item.Blog_Id">
+                    <a class="btn btn-danger" href="/blogajax/delete/@item.Blog_Id">
                         <i class="fa-solid fa-trash"></i>
                     </a>
                 </td>
