@@ -19,13 +19,13 @@
     <a href="/blogajax/create" class="btn btn-success"><i class="fa-solid fa-plus"></i></a> Blog List
 </h4>
 
-@if (message is not null)
+@* @if (message is not null)
 {
     <div class="alert alert-@(isSuccess?"success" :"danger") role="alert">
         @message
     </div>
 }
-
+ *@
 <table class="table">
     <thead>
         <tr>
@@ -45,16 +45,56 @@
                 <td>@item.Blog_Author</td>
                 <td>@item.Blog_Content</td>
                 <td>
-                    <a class="btn btn-warning" href="/blogajax/edit/@item.Blog_Id">
+                    <button type="button" class="btn btn-warning" id="btnEdit" onclick="editBtnClick(@item.Blog_Id)">
                         <i class="fa-solid fa-pen-to-square"></i>
-                    </a>
-                    <a class="btn btn-danger" href="/blogajax/delete/@item.Blog_Id">
+                    </button>
+                    <button type="button" class="btn btn-danger" id="btnDelete" onclick="deleteBtnClick(@item.Blog_Id)">
                         <i class="fa-solid fa-trash"></i>
-                    </a>
+                    </button>
                 </td>
             </tr>
         }
-
     </tbody>
 </table>
+@section scripts{
+    <script>
+        function editBtnClick(id) {
+            $.ajax({
+                url: '/blogajax/edit',
+                type: 'GET',
+                data: {
+                    id: id
+                },
+                success: function (data) {
+                    if (data.isSuccess)
+                        location.href = "/blogajax/create";
+                },
+                error: function (request, status, error) {
+                    console.log({ request, status, error });
+                }
+            })
+        }
+
+        function deleteBtnClick(id) {
+            confirmMessage("Are you sure want to delete?").then((result) => {
+                if (result) {
+                    $.ajax({
+                        url: '/blogajax/delete',
+                        type: 'GET',
+                        data: {
+                            id: id
+                        },
+                        success: function (data) {
+                            showMessage(data, "/blogajax/list");
+                        },
+                        error: function (request, status, error) {
+                            console.log({ request, status, error });
+                        }
+                    })
+                }
+            });
+        }
+    </script>
+}
+
 @await Html.PartialAsync("_Pagination", Model.PageSetting)
