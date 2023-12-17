@@ -1,6 +1,6 @@
 ﻿@model BlogDataModel
 @{
-	ViewData["Title"] = "Blog Update";
+	ViewData["Title"] = "Blog Edit";
 }
 
 <div class="mb-3">
@@ -16,7 +16,7 @@
 	<input type="text" id="Blog_Content" value="@Model.Blog_Content" class="form-control">
 </div>
 <a href="/blogajax/list" class="btn btn-secondary">Cancel</a>
-<button type="button" class="btn btn-primary ladda-button" data-style="expand-left" id="btnUpdate">
+<button type="button" class="btn btn-primary ladda-button" data-style="expand-left" data-Blog_Id="@Model.Blog_Id" id="btnUpdate">
 	<span class="ladda-label">Update</span>
 </button>
 
@@ -28,6 +28,8 @@
 			var l = Ladda.create(this);
 			l.start();
 
+			//var _id = $(this).data("Blog_Id");
+			var _id = @Model.Blog_Id;
 			var _reqModel = {
 				Blog_Title: $("#Blog_Title").val(),
 				Blog_Author: $("#Blog_Author").val(),
@@ -35,9 +37,10 @@
 			};
 
 			$.ajax({
-				url: '/blogajax/update',
+				url: '/blogajax/update?id='+ _id,
 				type: 'POST',
 				data: {
+					id	: _id,
 					reqModel: _reqModel
 				},
 				success: function (data) {

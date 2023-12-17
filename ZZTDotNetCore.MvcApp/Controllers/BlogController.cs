@@ -107,6 +107,7 @@ namespace ZZTDotNetCore.MvcApp.Controllers
             blog.Blog_Author = reqModel.Blog_Author;
             blog.Blog_Content = reqModel.Blog_Content;
 
+            _context.Blogs.Entry(blog).State = EntityState.Modified;
             int result = _context.SaveChanges();
 
             string message = result > 0 ? "Updating Successful." : "Updating Failed.";
