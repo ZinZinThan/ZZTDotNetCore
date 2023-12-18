@@ -49,7 +49,7 @@ namespace ZZTDotNetCore.MvcApp.Controllers
 		public async Task<IActionResult> BlogSave(BlogDataModel reqModel)
 		{
 			await _context.Blogs.AddAsync(reqModel);
-			var result = await _context.SaveChangesAsync();
+			int result = await _context.SaveChangesAsync();
 			string message = result > 0 ? "Saving Successful." : " Saving Failed.";
 			TempData["Message"] = message;
 			TempData["IsSuccess"] = result > 0;

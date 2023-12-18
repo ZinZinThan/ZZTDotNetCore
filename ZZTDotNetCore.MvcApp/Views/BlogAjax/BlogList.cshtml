@@ -1,7 +1,7 @@
 ﻿@model BlogDataResponseModel
 
 @{
-    ViewData["Title"] = "Blog Index";
+    ViewData["Title"] = "Blog List";
     string message = null;
     bool isSuccess = false;
     if (TempData["Message"] != null)
@@ -45,9 +45,12 @@
                 <td>@item.Blog_Author</td>
                 <td>@item.Blog_Content</td>
                 <td>
-                    <a class="btn btn-warning" href="/blogajax/edit/@item.Blog_Id">
+                    @* <a class="btn btn-warning" href="/blogajax/edit/@item.Blog_Id">
                         <i class="fa-solid fa-pen-to-square"></i>
-                    </a>
+                    </a> *@
+                    <button type="button" class="btn btn-warning" id="btnEdit" onclick="editBtnClick(@item.Blog_Id)">
+                        <i class="fa-solid fa-pen-to-square"></i>
+                    </button>
                     <button type="button" class="btn btn-danger" id="btnDelete" onclick="deleteBtnClick(@item.Blog_Id)">
                         <i class="fa-solid fa-trash"></i>
                     </button>
@@ -58,22 +61,22 @@
 </table>
 @section scripts{
     <script>
-        // function editBtnClick(id) {
-        //     $.ajax({
-        //         url: '/blogajax/edit',
-        //         type: 'GET',
-        //         data: {
-        //             id: id
-        //         },
-        //         success: function (data) {
-        //             if (data!=null)
-        //                 location.href = "/blogajax/edit";
-        //         },
-        //         error: function (request, status, error) {
-        //             console.log({ request, status, error });
-        //         }
-        //     })
-        // }
+        function editBtnClick(id) {
+            $.ajax({
+                url: '/blogajax/edit',
+                type: 'GET',
+                data: {
+                    id: id
+                },
+                success: function (data) {
+                    if (data!=null)
+                        location.href = "/blogajax/edit?id=" + id;
+                },
+                error: function (request, status, error) {
+                    console.log({ request, status, error });
+                }
+            })
+        }
 
         function deleteBtnClick(id) {
             confirmMessage("Are you sure want to delete?").then((result) => {
