@@ -16,7 +16,7 @@
 	<input type="text" id="Blog_Content" value="@Model.Blog_Content" class="form-control">
 </div>
 <a href="/blogajax/list" class="btn btn-secondary">Cancel</a>
-<button type="button" class="btn btn-primary ladda-button" data-style="expand-left" data-Blog_Id="@Model.Blog_Id" id="btnUpdate">
+<button type="button" class="btn btn-primary ladda-button" data-style="expand-left" data-Blog-Id="@Model.Blog_Id" id="btnUpdate">
 	<span class="ladda-label">Update</span>
 </button>
 
@@ -28,7 +28,7 @@
 			var l = Ladda.create(this);
 			l.start();
 
-			//var _id = $(this).data("Blog_Id");
+			//var _id = $(this).data("Blog-Id");
 			var _id = @Model.Blog_Id;
 			var _reqModel = {
 				Blog_Title: $("#Blog_Title").val(),
