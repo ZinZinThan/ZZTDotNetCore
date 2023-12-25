@@ -12,7 +12,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Documents", "Documents", "{
 		README.md = README.md
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ZZTDotNetCore.MvcApp", "ZZTDotNetCore.MvcApp\ZZTDotNetCore.MvcApp.csproj", "{C3887801-AA63-45AA-BA1A-87068A9B6577}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ZZTDotNetCore.MvcApp", "ZZTDotNetCore.MvcApp\ZZTDotNetCore.MvcApp.csproj", "{C3887801-AA63-45AA-BA1A-87068A9B6577}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ZZTDotNetCore.AtmApp", "ZZTDotNetCore.AtmApp\ZZTDotNetCore.AtmApp.csproj", "{545023BB-48F4-4138-AD7A-D8A7C6C6741B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -32,6 +34,10 @@ Global
 		{C3887801-AA63-45AA-BA1A-87068A9B6577}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C3887801-AA63-45AA-BA1A-87068A9B6577}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C3887801-AA63-45AA-BA1A-87068A9B6577}.Release|Any CPU.Build.0 = Release|Any CPU
+		{545023BB-48F4-4138-AD7A-D8A7C6C6741B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{545023BB-48F4-4138-AD7A-D8A7C6C6741B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{545023BB-48F4-4138-AD7A-D8A7C6C6741B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{545023BB-48F4-4138-AD7A-D8A7C6C6741B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
