@@ -1,0 +1,40 @@
+﻿@{
+    ViewData["Title"] = "Register Page";
+}
+
+<h2 class="display-4 text-center">Welcome to AYA Bank</h2><br/>
+<form action="/atm/save" method="post">
+    <div class="container-fluid d-flex justify-content-center align-items-center">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="col-6">
+                    <label for="txtName" class="form-label">Name</label>
+                    <input type="text" class="form-control" id="txtName">
+                </div>
+            </div>
+            <div class="col-md-12">
+                <div class="col-6">
+                    <label for="txtCard" class="form-label">Card Number</label>
+                    <input type="text" class="form-control" id="txtCard">
+                </div>
+            </div>
+            <div class="col-md-12">
+                <div class="col-6">
+                    <label for="txtPin" class="form-label">PIN</label>
+                    <input type="text" class="form-control" id="txtPin">
+                </div>
+            </div>
+            <div class="col-md-12">
+                <div class="col-6">
+                    <label for="txtBalance" class="form-label">Balance</label>
+                    <input type="text" class="form-control" id="txtBalance">
+                </div>
+            </div>
+            <div class="btn-container" style="margin-top:1.5rem;">
+                <a href="/atm/index" class="btn btn-secondary mr-2" id="btnCancel">Cancel</a>
+                <button type="submit" class="btn btn-success" id="btnSave">Register</button>
+            </div>
+        </div>
+    </div>
+</form>
+    
