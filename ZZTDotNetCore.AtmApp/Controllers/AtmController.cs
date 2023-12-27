@@ -50,20 +50,13 @@ namespace ZZTDotNetCore.AtmApp.Controllers
         [ActionName("Save")]
         public async Task<IActionResult> AtmSave(AtmDataModel reqModel)
         {
-            if( reqModel.Name == null || reqModel.CardNumber == 0 || reqModel.Pin == 0 || reqModel.Balance == 0)
-            {
-                TempData["Message"] = " Please fill all field.";
-                TempData["IsSuccess"] = false;
-                return View("AtmCreate");
-            }
-
             await _context.AtmDatas.AddAsync(reqModel);
             int result = await _context.SaveChangesAsync();
 
-            TempData["Message"] = result > 0 ? "Register Successful." : "Register Failed.";
-            TempData["IsSuccess"] = result > 0;
+            string message = result > 0 ? "Register Successful." : "Register Failed.";
           
-            return View("AtmCreate");
+            MessageModel model = new MessageModel(result > 0, message);
+            return Json(model);
         }
 
         [ActionName("List")]
