@@ -5,6 +5,14 @@
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
   </PropertyGroup>
+
+  <ItemGroup>
+    <Content Remove="wwwroot\js\custom.js" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="wwwroot\js\custom.js" />
+  </ItemGroup>
 	
   <ItemGroup>
 	<PackageReference Include="Microsoft.EntityFrameworkCore" Version="7.0.14" />

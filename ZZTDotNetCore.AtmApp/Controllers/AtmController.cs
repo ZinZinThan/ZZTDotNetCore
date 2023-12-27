@@ -31,9 +31,13 @@ namespace ZZTDotNetCore.AtmApp.Controllers
             {
                 TempData["Message"] = "Card not found.";
                 TempData["IsSuccess"] = false;
-                return Redirect("/atm");
+
+                MessageModel model1 = new MessageModel(false, "Login Failed.");
+                return Json(model1);
             }
-            return Redirect("/atm/list");
+
+            MessageModel model = new MessageModel(true, "Successful Login");
+            return Json(model);
         }
 
         [ActionName("Create")]
@@ -67,6 +71,7 @@ namespace ZZTDotNetCore.AtmApp.Controllers
         {
             return View("AtmList");
         }
+
 
     }
 }
