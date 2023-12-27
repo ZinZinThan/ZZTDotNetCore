@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using System.Net.NetworkInformation;
 using ZZTDotNetCore.AtmApp.EFDbContext;
 using ZZTDotNetCore.AtmApp.Models;
@@ -22,9 +23,9 @@ namespace ZZTDotNetCore.AtmApp.Controllers
 
         [HttpPost]
         [ActionName("Login")]
-        public IActionResult AtmLogin(AtmDataModel reqModel)
+        public async Task<IActionResult> AtmLogin(AtmDataModel reqModel)
         {
-            var card = _context.AtmDatas.FirstOrDefault(x => x.CardNumber == reqModel.CardNumber && x.Pin == reqModel.Pin);
+            var card = await _context.AtmDatas.FirstOrDefaultAsync(x => x.CardNumber == reqModel.CardNumber && x.Pin == reqModel.Pin);
 
             if (card is null)
             {
@@ -35,12 +36,6 @@ namespace ZZTDotNetCore.AtmApp.Controllers
             return Redirect("/atm/list");
         }
 
-        [ActionName("List")]
-        public IActionResult AtmList()
-        {
-            return View("AtmList");
-        }
-
         [ActionName("Create")]
         public IActionResult AtmCreate()
         {
@@ -49,11 +44,29 @@ namespace ZZTDotNetCore.AtmApp.Controllers
 
         [HttpPost]
         [ActionName("Save")]
-        public IActionResult AtmSave()
+        public async Task<IActionResult> AtmSave(AtmDataModel reqModel)
         {
-            return Redirect("/atm/index");
+            if( reqModel.Name == null || reqModel.CardNumber == 0 || reqModel.Pin == 0 || reqModel.Balance == 0)
+            {
+                TempData["Message"] = " Please fill all field.";
+                TempData["IsSuccess"] = false;
+                return View("AtmCreate");
+            }
+
+            await _context.AtmDatas.AddAsync(reqModel);
+            int result = await _context.SaveChangesAsync();
+
+            TempData["Message"] = result > 0 ? "Register Successful." : "Register Failed.";
+            TempData["IsSuccess"] = result > 0;
+          
+            return View("AtmCreate");
         }
 
-       
+        [ActionName("List")]
+        public IActionResult AtmList()
+        {
+            return View("AtmList");
+        }
+
     }
 }

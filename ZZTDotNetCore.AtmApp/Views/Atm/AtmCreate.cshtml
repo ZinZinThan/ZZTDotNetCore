@@ -1,33 +1,46 @@
 ﻿@{
     ViewData["Title"] = "Register Page";
+    string message = null;
+    bool isSuccess = false;
+    if (TempData["Message"] != null)
+    {
+        message = TempData["Message"].ToString();
+        isSuccess = Convert.ToBoolean(TempData["IsSuccess"]);
+    }
+    if (message is not null)
+    {
+        <div class="alert alert-@(isSuccess?"success" :"danger") role="alert">
+            @message
+        </div>
+    }
 }
 
-<h2 class="display-4 text-center">Welcome to AYA Bank</h2><br/>
+@* <h4 class="display-4 text-center">Welcome to AYA Bank</h4><br/> *@
 <form action="/atm/save" method="post">
     <div class="container-fluid d-flex justify-content-center align-items-center">
         <div class="row">
             <div class="col-md-12">
                 <div class="col-6">
                     <label for="txtName" class="form-label">Name</label>
-                    <input type="text" class="form-control" id="txtName">
+                    <input type="text" class="form-control" name="Name" id="txtName">
                 </div>
             </div>
             <div class="col-md-12">
                 <div class="col-6">
                     <label for="txtCard" class="form-label">Card Number</label>
-                    <input type="text" class="form-control" id="txtCard">
+                    <input type="text" class="form-control" name="CardNumber" id="txtCard">
                 </div>
             </div>
             <div class="col-md-12">
                 <div class="col-6">
                     <label for="txtPin" class="form-label">PIN</label>
-                    <input type="text" class="form-control" id="txtPin">
+                    <input type="text" class="form-control" name="Pin" id="txtPin">
                 </div>
             </div>
             <div class="col-md-12">
                 <div class="col-6">
                     <label for="txtBalance" class="form-label">Balance</label>
-                    <input type="text" class="form-control" id="txtBalance">
+                    <input type="text" class="form-control" name="Balance" id="txtBalance">
                 </div>
             </div>
             <div class="btn-container" style="margin-top:1.5rem;">

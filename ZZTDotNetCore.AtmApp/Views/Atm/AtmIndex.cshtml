@@ -1,6 +1,6 @@
 ﻿
 @{
-    ViewData["Title"] = "Blog Index";
+    ViewData["Title"] = "Login Page";
     string message = null;
     bool isSuccess = false;
     if(TempData["Message"] != null)
@@ -10,14 +10,18 @@
     }
     if (message is not null)
     {
-        <div class="alert alert-@(isSuccess?"success" :"danger") role="alert">
-            @message
+        <div class="mx-auto col-14 col-md-10 col-lg-6">
+            <div class="form-group">
+                <div class="alert alert-@(isSuccess?"success" :"danger") role="alert">
+                @message
+                </div>
+            </div>
         </div>
     }
 }
 
 <form class="form-example" action="/atm/login" method="post">
-    <h4 class="display-4 text-center">Welcome to AYA Bank</h4><br />
+   @*  <h4 class="display-4 text-center">Welcome to AYA Bank</h4><br /> *@
     <div class="mx-auto col-14 col-md-10 col-lg-6">
         <div class="form-group">
             <div class="mx-auto col-md-6">
