@@ -58,16 +58,41 @@ namespace ZZTDotNetCore.AtmApp.Controllers
         [ActionName("List")]
         public async Task<IActionResult> AtmList(int id)
         {
-            var lst = await _context.AtmDatas.AsNoTracking().FirstOrDefaultAsync(x => x.Id == id);
-            return View("AtmList",lst);
+            var card = await _context.AtmDatas.AsNoTracking().FirstOrDefaultAsync(x => x.Id == id);
+            
+            return View("AtmList",card);
         }
 
         [ActionName("Balance")]
         public async Task<IActionResult> AtmBalance(int id)
         {
-            var lst = await _context.AtmDatas.AsNoTracking().FirstOrDefaultAsync(x => x.Id == id);
-            return View("AtmBalance", lst);
+            var card = await _context.AtmDatas.AsNoTracking().FirstOrDefaultAsync(x => x.Id == id);
+           
+            return View("AtmBalance", card);
         }
 
+        [ActionName("Deposite")]
+        public async Task<IActionResult> AtmDeposite(int id)
+        {
+            var card = await _context.AtmDatas.AsNoTracking().FirstOrDefaultAsync(x => x.Id == id);
+
+            return View("AtmDeposite",card);
+        }
+
+        [ActionName("Withdraw")]
+        public async Task<IActionResult> AtmWithdraw(int id)
+        {
+            var card = await _context.AtmDatas.AsNoTracking().FirstOrDefaultAsync(x => x.Id == id);
+
+            return View("AtmWithdraw",card);
+        }
+
+        [ActionName("ChangePin")]
+        public async Task<IActionResult> AtmChangePin(int id)
+        {
+            var card = await _context.AtmDatas.AsNoTracking().FirstOrDefaultAsync(x => x.Id == id);
+
+            return View("AtmWithdraw", card);
+        }
     }
 }
