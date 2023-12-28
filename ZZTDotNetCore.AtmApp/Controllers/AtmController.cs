@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System.Net.NetworkInformation;
+using System.Reflection.Metadata;
 using ZZTDotNetCore.AtmApp.EFDbContext;
 using ZZTDotNetCore.AtmApp.Models;
 
@@ -31,7 +32,6 @@ namespace ZZTDotNetCore.AtmApp.Controllers
             {
                 TempData["Message"] = "Card not found.";
                 TempData["IsSuccess"] = false;
-                return View("AtmIndex");
             }
             return Json(card);
         }
@@ -77,6 +77,22 @@ namespace ZZTDotNetCore.AtmApp.Controllers
             var card = await _context.AtmDatas.AsNoTracking().FirstOrDefaultAsync(x => x.Id == id);
 
             return View("AtmDeposite",card);
+        }
+
+        [HttpPost]
+        [ActionName("Deposite")]
+        public async Task<IActionResult> AtmDeposite(int id, AtmDataModel reqModel)
+        {
+            var card = await _context.AtmDatas.FirstOrDefaultAsync(x => x.Id == id);
+
+            card.Balance += reqModel.Balance;
+
+            _context.AtmDatas.Entry(card).State = EntityState.Modified;
+            int result = _context.SaveChanges();
+            string message = result > 0 ? "Deposite Successful." : "Deposite Failed.";
+
+            MessageModel model = new MessageModel(result > 0, message);
+            return Json(model);
         }
 
         [ActionName("Withdraw")]

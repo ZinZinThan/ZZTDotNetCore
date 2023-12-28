@@ -1,5 +1,62 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
+﻿@model AtmDataModel
+
 @{
+    ViewData["Title"] = "Deposite";
+}
+
+<div class="container-fluid d-flex justify-content-center align-items-center">
+    <div class="row">
+        <div class="p-3 mb-2 bg-secondary text-white">Enter Deposite Amount :</div>
+        <div class="col-md-12">
+            <div class="col-6">
+                <label for="txtName" class="form-label">Name</label>
+                <input type="text" class="form-control" value="@Model.Name" id="txtName" readonly>
+            </div>
+        </div>
+        <div class="col-md-12">
+            <div class="col-6">
+                <label for="txtCard" class="form-label">Card Number</label>
+                <input type="text" class="form-control" value="@Model.CardNumber" id="txtCard" readonly>
+            </div>
+        </div>
+        <div class="col-md-12">
+            <div class="col-6">
+                <label for="txtBalance" class="form-label">Balance</label>
+                <input type="text" class="form-control" id="txtBalance">
+            </div>
+        </div>
+        <div class="btn-container" style="margin-top:1.5rem;">
+            <a href="/atm/list?id=@Model.Id" class="btn btn-secondary mr-2" id="btnCancel">Cancel</a>
+            <button type="button" class="btn btn-success ladda-button" data-style="expand-left" id="btnAdd">
+                <span class="ladda-label">Add</span>
+            </button>
+        </div>
+    </div>
+</div>
+
+@section scripts{
+    <script>
+        $("#btnAdd").click(function () {
+
+            var _id = @Model.Id;
+            var _reqModel = {
+                Balance : $("#txtBalance").val()
+            }
+
+            $.ajax({
+                url: '/atm/deposite?id=' + _id,
+                type: 'POST',
+                data: {
+                    id : _id,
+                    reqModel: _reqModel
+                },
+                success: function (data) {
+                    showMessage(data, "/atm/list?id=" + _id);
+                },
+                error: function (request, status, error) {
+                    console.log({ request, status, error });
+                }
+            });
+        })
+    </script>
 }

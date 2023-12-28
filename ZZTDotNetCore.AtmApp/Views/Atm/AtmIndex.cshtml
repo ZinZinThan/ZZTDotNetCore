@@ -62,10 +62,10 @@
 				data: {
 					reqModel : _reqModel
 				},
-				success: function (data) {
+                success: function (card) {
                     l.stop();
-                    if(data != null){
-                        location.href = "/atm/list?id=" + data.id;
+                    if (card !=null) {
+                        location.href = "/atm/list?id=" + card.id;
                     }else{
                         location.href ="/atm";
                     }
