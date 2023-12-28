@@ -30,7 +30,7 @@ namespace ZZTDotNetCore.AtmApp.Controllers
 
             if (card is null)
             {
-                TempData["Message"] = "Card not found.";
+                TempData["Message"] = "Card not recognized. Please try again!";
                 TempData["IsSuccess"] = false;
             }
             return Json(card);
@@ -71,25 +71,24 @@ namespace ZZTDotNetCore.AtmApp.Controllers
             return View("AtmBalance", card);
         }
 
-        [ActionName("Deposite")]
-        public async Task<IActionResult> AtmDeposite(int id)
+        [ActionName("Deposit")]
+        public async Task<IActionResult> AtmDeposit(int id)
         {
             var card = await _context.AtmDatas.AsNoTracking().FirstOrDefaultAsync(x => x.Id == id);
 
-            return View("AtmDeposite",card);
+            return View("AtmDeposit",card);
         }
 
         [HttpPost]
-        [ActionName("Deposite")]
-        public async Task<IActionResult> AtmDeposite(int id, AtmDataModel reqModel)
+        [ActionName("Deposit")]
+        public async Task<IActionResult> AtmDeposit(int id, AtmDataModel reqModel)
         {
             var card = await _context.AtmDatas.FirstOrDefaultAsync(x => x.Id == id);
 
             card.Balance += reqModel.Balance;
-
             _context.AtmDatas.Entry(card).State = EntityState.Modified;
             int result = _context.SaveChanges();
-            string message = result > 0 ? "Deposite Successful." : "Deposite Failed.";
+            string message = result > 0 ? "Deposit Successful." : "Deposit Failed.";
 
             MessageModel model = new MessageModel(result > 0, message);
             return Json(model);
@@ -103,12 +102,33 @@ namespace ZZTDotNetCore.AtmApp.Controllers
             return View("AtmWithdraw",card);
         }
 
+        [HttpPost]
+        [ActionName("Withdraw")]
+        public async Task<IActionResult> AtmWithdraw(int id, AtmDataModel reqModel)
+        {
+            var card = await _context.AtmDatas.FirstOrDefaultAsync(x => x.Id == id);
+
+            if(reqModel.Balance > card.Balance)
+            {
+                MessageModel model1 = new MessageModel(false, "Insufficient balance amount");
+                return Json(model1);
+            }
+
+            card.Balance -= reqModel.Balance;
+            _context.AtmDatas.Entry(card).State = EntityState.Modified;
+            int result = _context.SaveChanges();
+            string message = result > 0 ? "Withdraw Successful." : "Withdraw Failed.";
+
+            MessageModel model = new MessageModel(result > 0, message);
+            return Json(model);
+        }
+
         [ActionName("ChangePin")]
         public async Task<IActionResult> AtmChangePin(int id)
         {
             var card = await _context.AtmDatas.AsNoTracking().FirstOrDefaultAsync(x => x.Id == id);
 
-            return View("AtmWithdraw", card);
+            return View("AtmChangePin", card);
         }
     }
 }

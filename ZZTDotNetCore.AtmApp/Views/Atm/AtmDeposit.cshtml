@@ -1,12 +1,12 @@
 ﻿@model AtmDataModel
 
 @{
-    ViewData["Title"] = "Deposite";
+    ViewData["Title"] = "Deposit";
 }
 
 <div class="container-fluid d-flex justify-content-center align-items-center">
     <div class="row">
-        <div class="p-3 mb-2 bg-secondary text-white">Enter Deposite Amount :</div>
+        <div class="p-3 mb-2 bg-secondary text-white">Deposit Amount</div>
         <div class="col-md-12">
             <div class="col-6">
                 <label for="txtName" class="form-label">Name</label>
@@ -21,15 +21,13 @@
         </div>
         <div class="col-md-12">
             <div class="col-6">
-                <label for="txtBalance" class="form-label">Balance</label>
+                <label for="txtBalance" class="form-label">How much money would you like to deposit</label>
                 <input type="text" class="form-control" id="txtBalance">
             </div>
         </div>
         <div class="btn-container" style="margin-top:1.5rem;">
             <a href="/atm/list?id=@Model.Id" class="btn btn-secondary mr-2" id="btnCancel">Cancel</a>
-            <button type="button" class="btn btn-success ladda-button" data-style="expand-left" id="btnAdd">
-                <span class="ladda-label">Add</span>
-            </button>
+            <button type="button" class="btn btn-success" id="btnAdd">Add</button>
         </div>
     </div>
 </div>
@@ -44,7 +42,7 @@
             }
 
             $.ajax({
-                url: '/atm/deposite?id=' + _id,
+                url: '/atm/deposit?id=' + _id,
                 type: 'POST',
                 data: {
                     id : _id,
