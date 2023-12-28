@@ -1,0 +1,31 @@
+﻿@model AtmDataModel
+
+@{
+    ViewData["Title"] = "Check Balance";
+}
+<h5 class="text-info">Check Balance :</h5>
+<div class="container-fluid d-flex justify-content-center align-items-center">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="col-6">
+                <label for="txtName" class="form-label">Name</label>
+                <input type="text" class="form-control" value="@Model.Name" id="txtName" disabled>
+            </div>
+        </div>
+        <div class="col-md-12">
+            <div class="col-6">
+                <label for="txtCard" class="form-label">Card Number</label>
+                <input type="text" class="form-control" value="@Model.CardNumber" id="txtCard" disabled>
+            </div>
+        </div>
+        <div class="col-md-12">
+            <div class="col-6">
+                <label for="txtBalance" class="form-label">Balance</label>
+                <input type="text" class="form-control" value="@Model.Balance" id="txtBalance" disabled>
+            </div>
+        </div>
+        <div class="btn-container" style="margin-top:1.5rem;">
+            <a href="/atm/list/@Model.Id" class="btn btn-info mr-2" id="btnCancel">Back</a>
+        </div>
+    </div>
+</div>

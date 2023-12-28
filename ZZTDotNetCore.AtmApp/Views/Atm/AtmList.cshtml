@@ -1,22 +1,55 @@
-﻿@{
+﻿@model AtmDataModel
+
+@{
     ViewData["Title"] = "Transaction Page";
 }
 
-<h4 class="display-4 text-center">Welcome to AYA Bank</h4><br />
 <div class="container-fluid d-flex justify-content-center">
     <div class="row">
         <div class="d-grid gap-2 col-4">
-            <a href="#" class="btn btn-info btn-lg">Balance</a>
+            <a href="/atm/balance?id=@Model.Id" id="btnBalance" class="btn btn-info btn-lg">Balance</a>
         </div>
         <div class="d-grid gap-2 col-4">
-            <a href="#" class="btn btn-success btn-lg">Deposite</a>
+            <a href="" id="btnDeposite" class="btn btn-success btn-lg">Deposite</a>
         </div>
         <div class="d-grid gap-2 col-4">
-            <a href="#" class="btn btn-warning btn-lg">Withdraw</a>
+            <a href="" id="btnWithdraw" class="btn btn-warning btn-lg">Withdraw</a>
         </div>
         <div class="d-grid gap-2 col-4">
-            <a href="#" class="btn btn-danger btn-lg">Change PIN</a>
+            <a href="" id="btnChangePin" class="btn btn-danger btn-lg">Change Pin</a>
         </div>
     </div>
 </div>
 
+@* @section secripts{
+    <script>
+        $("#btnBalance").click(function (e) {
+            e.preventDefault();
+
+            var l = Ladda.create(this);
+            l.start();
+
+            var _id = @Model.Id;
+            $.ajax({
+                url: '/atm/balance?id='+ _id,
+                type: 'POST',
+                data: {
+                    id: _id
+                },
+                success: function (data) {
+                    l.stop();
+                    if (data != null) {
+                        location.href = "/atm/balance?id=" + data.id;
+                    } else {
+                        location.href = "/atm/list?id=" + _id;
+                    }
+                },
+                error: function (request, status, error) {
+                    console.log({ request, status, error });
+                }
+            });
+            
+            var id=
+        })
+    </script>
+} *@

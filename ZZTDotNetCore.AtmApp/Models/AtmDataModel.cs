@@ -13,6 +13,7 @@ namespace ZZTDotNetCore.AtmApp.Models
         public int Pin { get; set; }
         public int Balance { get; set; }
     }
+
 	public class MessageModel
 	{
 		public MessageModel() { }

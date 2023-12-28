@@ -31,13 +31,9 @@ namespace ZZTDotNetCore.AtmApp.Controllers
             {
                 TempData["Message"] = "Card not found.";
                 TempData["IsSuccess"] = false;
-
-                MessageModel model1 = new MessageModel(false, "Login Failed.");
-                return Json(model1);
+                return View("AtmIndex");
             }
-
-            MessageModel model = new MessageModel(true, "Successful Login");
-            return Json(model);
+            return Json(card);
         }
 
         [ActionName("Create")]
@@ -60,11 +56,18 @@ namespace ZZTDotNetCore.AtmApp.Controllers
         }
 
         [ActionName("List")]
-        public IActionResult AtmList()
+        public async Task<IActionResult> AtmList(int id)
         {
-            return View("AtmList");
+            var lst = await _context.AtmDatas.AsNoTracking().FirstOrDefaultAsync(x => x.Id == id);
+            return View("AtmList",lst);
         }
 
+        [ActionName("Balance")]
+        public async Task<IActionResult> AtmBalance(int id)
+        {
+            var lst = await _context.AtmDatas.AsNoTracking().FirstOrDefaultAsync(x => x.Id == id);
+            return View("AtmBalance", lst);
+        }
 
     }
 }
