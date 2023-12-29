@@ -130,5 +130,43 @@ namespace ZZTDotNetCore.AtmApp.Controllers
 
             return View("AtmChangePin", card);
         }
+
+        [HttpPost]
+        [ActionName("ChangePin")]
+        public async Task<IActionResult> AtmChangePin(int id , AtmDataModel reqModel , int newpin, int confirmpin)
+        {
+            var card = await _context.AtmDatas.AsNoTracking().FirstOrDefaultAsync(x => x.Id == id);
+
+            if (card is null)
+            {
+                TempData["Message"] = "Card isn't recognized.";
+                TempData["IsSuccess"] = false;
+            }
+            else
+            {
+                if (card.Pin == reqModel.Pin)
+                {
+                    if (newpin == confirmpin)
+                    {
+                        card.Pin = newpin;
+                        _context.AtmDatas.Entry(card).State = EntityState.Modified;
+                        int result = _context.SaveChanges();
+                        string message = result > 0 ? "Successful." : "Failed.";
+
+                        MessageModel model1 = new MessageModel(result > 0, message);
+                        return Json(model1);
+                    }
+                    else
+                    {
+                        MessageModel model1 = new MessageModel(false,"Not match PIN numbers");
+                        return Json(model1);
+                    }
+                }
+                MessageModel model = new MessageModel(false, "Current PIN number is invalid");
+                return Json(model);
+            }
+            return Json(card);
+
+        }
     }
 }
