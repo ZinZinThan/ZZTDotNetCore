@@ -1,6 +1,6 @@
 ﻿
 @{
-    ViewData["Title"] = "Login Page";
+    ViewData["Title"] = "Login";
     string message = null;
     bool isSuccess = false;
     if(TempData["Message"] != null)
@@ -65,7 +65,7 @@
                 success: function (card) {
                     l.stop();
                     if (card !=null) {
-                        location.href = "/atm/list?id=" + card.id;
+                        location.href = "/atm/transaction?id=" + card.id;
                     }else{
                         location.href ="/atm";
                     }

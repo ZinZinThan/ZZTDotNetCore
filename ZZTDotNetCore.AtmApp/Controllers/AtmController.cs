@@ -55,12 +55,16 @@ namespace ZZTDotNetCore.AtmApp.Controllers
             return Json(model);
         }
 
-        [ActionName("List")]
-        public async Task<IActionResult> AtmList(int id)
+        [ActionName("Transaction")]
+        public async Task<IActionResult> AtmTransaction(int id)
         {
             var card = await _context.AtmDatas.AsNoTracking().FirstOrDefaultAsync(x => x.Id == id);
-            
-            return View("AtmList",card);
+            if (card is null)
+            {
+                TempData["Message"] = "User ID not found.";
+                TempData["IsSuccess"] = false;
+            }
+            return View("AtmTransaction",card);
         }
 
         [ActionName("Balance")]
@@ -84,7 +88,18 @@ namespace ZZTDotNetCore.AtmApp.Controllers
         public async Task<IActionResult> AtmDeposit(int id, AtmDataModel reqModel)
         {
             var card = await _context.AtmDatas.FirstOrDefaultAsync(x => x.Id == id);
+            if (card is null)
+            {
+                TempData["Message"] = "User ID not found.";
+                TempData["IsSuccess"] = false;
+                return Json(card);
+            }
 
+            if(reqModel.Balance <= 0)
+            {
+                MessageModel model1 = new MessageModel(false, "Please fill deposit amount");
+                return Json(model1);
+            }
             card.Balance += reqModel.Balance;
             _context.AtmDatas.Entry(card).State = EntityState.Modified;
             int result = _context.SaveChanges();
@@ -107,8 +122,13 @@ namespace ZZTDotNetCore.AtmApp.Controllers
         public async Task<IActionResult> AtmWithdraw(int id, AtmDataModel reqModel)
         {
             var card = await _context.AtmDatas.FirstOrDefaultAsync(x => x.Id == id);
-
-            if(reqModel.Balance > card.Balance)
+            if (card is null)
+            {
+                TempData["Message"] = "User ID not found.";
+                TempData["IsSuccess"] = false;
+                return Json(card);
+            }
+            if (reqModel.Balance > card.Balance)
             {
                 MessageModel model1 = new MessageModel(false, "Insufficient balance amount");
                 return Json(model1);

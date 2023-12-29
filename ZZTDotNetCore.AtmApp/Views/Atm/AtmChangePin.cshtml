@@ -43,7 +43,7 @@
             </div>
         </div>
         <div class="btn-container" style="margin-top:1.5rem;">
-            <a href="/atm/list?id=@Model.Id" class="btn btn-secondary mr-2" id="btnCancel">Cancel</a>
+            <a href="/atm/transaction?id=@Model.Id" class="btn btn-secondary mr-2" id="btnCancel">Cancel</a>
             <button type="button" class="btn btn-success" id="btnSave">Save</button>
         </div>
     </div>
@@ -71,7 +71,7 @@
                 },
                 success: function (card) {
                     if (card != null) {
-                        showMessage(card, "/atm/list?id=" + _id);
+                        showMessage(card, "/atm/transaction?id=" + _id);
                     } else {
                         location.href = "/atm/changepin?id=" + _id;
                     }
