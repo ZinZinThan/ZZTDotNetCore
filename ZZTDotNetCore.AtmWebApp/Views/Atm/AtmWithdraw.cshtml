@@ -72,7 +72,7 @@
                     if (data != null) {
                         showMessage(data, "/atm/transaction");
                     }else{
-                        location.href = "/atm/withdraw";
+                        location.href = "/atm/withdraw?id=" + _id;
                     }
                 },
                 error: function (request, status, error) {

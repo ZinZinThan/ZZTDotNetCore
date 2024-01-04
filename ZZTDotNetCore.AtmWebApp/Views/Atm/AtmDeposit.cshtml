@@ -71,7 +71,7 @@
                     if (data != null) {
                         showMessage(data, "/atm/transaction");
                     } else {
-                        location.href = "/atm/deposit";
+                        location.href = "/atm/deposit?id=" + _id;
                     }
                 },
                 error: function (request, status, error) {

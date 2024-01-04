@@ -55,7 +55,7 @@ namespace ZZTDotNetCore.AtmWebApp.Controllers
                 TempData["Message"] = "User ID not found.";
                 TempData["IsSuccess"] = false;
             }
-            return View("AtmTransaction");
+            return View("AtmTransaction",card);
         }
 
         [ActionName("Create")]
@@ -78,28 +78,17 @@ namespace ZZTDotNetCore.AtmWebApp.Controllers
         }
 
         [ActionName("Balance")]
-        public async Task<IActionResult> AtmBalance()
+        public async Task<IActionResult> AtmBalance(int id)
         {
-            var str = HttpContext.Session.GetString("LoginData");
-            if (str is null) return Redirect("/atm");
-
-            AtmDataModel model = JsonConvert.DeserializeObject<AtmDataModel>(str)!;
-
-            var card = await _context.AtmDatas.AsNoTracking().FirstOrDefaultAsync(x => x.Id == model.Id);
+            var card = await _context.AtmDatas.AsNoTracking().FirstOrDefaultAsync(x => x.Id == id);
            
             return View("AtmBalance", card);
         }
 
         [ActionName("Deposit")]
-        public async Task<IActionResult> AtmDeposit()
+        public async Task<IActionResult> AtmDeposit(int id)
         {
-            var str = HttpContext.Session.GetString("LoginData");
-            if (str is null) return Redirect("/atm");
-
-            AtmDataModel model = JsonConvert.DeserializeObject<AtmDataModel>(str)!;
-
-            var card = await _context.AtmDatas.AsNoTracking().FirstOrDefaultAsync(x => x.Id == model.Id);
-
+            var card = await _context.AtmDatas.AsNoTracking().FirstOrDefaultAsync(x => x.Id == id);
             return View("AtmDeposit",card);
         }
 
@@ -130,14 +119,9 @@ namespace ZZTDotNetCore.AtmWebApp.Controllers
         }
 
         [ActionName("Withdraw")]
-        public async Task<IActionResult> AtmWithdraw()
+        public async Task<IActionResult> AtmWithdraw(int id)
         {
-            var str = HttpContext.Session.GetString("LoginData");
-            if (str is null) return Redirect("/atm");
-
-            AtmDataModel model = JsonConvert.DeserializeObject<AtmDataModel>(str)!;
-
-            var card = await _context.AtmDatas.AsNoTracking().FirstOrDefaultAsync(x => x.Id == model.Id);
+            var card = await _context.AtmDatas.AsNoTracking().FirstOrDefaultAsync(x => x.Id == id);
             return View("AtmWithdraw",card);
         }
 
@@ -168,15 +152,9 @@ namespace ZZTDotNetCore.AtmWebApp.Controllers
         }
 
         [ActionName("ChangePin")]
-        public async Task<IActionResult> AtmChangePin()
+        public async Task<IActionResult> AtmChangePin(int id)
         {
-            var str = HttpContext.Session.GetString("LoginData");
-            if (str is null) return Redirect("/atm");
-
-            AtmDataModel model = JsonConvert.DeserializeObject<AtmDataModel>(str)!;
-
-            var card = await _context.AtmDatas.AsNoTracking().FirstOrDefaultAsync(x => x.Id == model.Id);
-
+            var card = await _context.AtmDatas.AsNoTracking().FirstOrDefaultAsync(x => x.Id == id);
             return View("AtmChangePin", card);
         }
 

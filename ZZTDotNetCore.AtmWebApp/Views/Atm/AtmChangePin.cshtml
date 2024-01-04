@@ -71,9 +71,9 @@
                 },
                 success: function (card) {
                     if (card != null) {
-                        showMessage(card, "/atm/transaction";
+                        showMessage(card, "/atm/transaction");
                     } else {
-                        location.href = "/atm/changepin";
+                        location.href = "/atm/changepin?id=" + _id;
                     }
                 },
                 error: function (request, status, error) {
