@@ -6,9 +6,9 @@ using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using ZZTDotNetCore.AtmApp.Models;
+using ZZTDotNetCore.AtmWebApp.Models;
 
-namespace ZZTDotNetCore.AtmApp.EFDbContext
+namespace ZZTDotNetCore.AtmWebApp.EFDbContext
 {
     public class AppDbContext : DbContext
     {

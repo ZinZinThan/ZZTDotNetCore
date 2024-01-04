@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace ZZTDotNetCore.AtmApp.Models
+namespace ZZTDotNetCore.AtmWebApp.Models
 {
 	[Table("Tbl_Atm")]
 	public class AtmDataModel
