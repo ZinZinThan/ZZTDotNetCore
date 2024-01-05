@@ -2,6 +2,7 @@
 using ZZTDotNetCore.ConsoleApp.AdoDotNetExamples;
 using ZZTDotNetCore.ConsoleApp.DapperExamples;
 using ZZTDotNetCore.ConsoleApp.EFCoreExamples;
+using ZZTDotNetCore.ConsoleApp.HttpClientExamples;
 
 Console.WriteLine("Hello World");
 
@@ -11,8 +12,14 @@ Console.WriteLine("Hello World");
 //DapperExample dapperExample = new DapperExample();
 //dapperExample.Run();
 
-EFCoreExample eFCoreExample = new EFCoreExample();
-eFCoreExample.Run();
+//EFCoreExample eFCoreExample = new EFCoreExample();
+//eFCoreExample.Run();
+
+Console.WriteLine("Please wait for api...");
+Console.ReadKey();
+
+HttpClientExample httpClientExample = new HttpClientExample();
+await httpClientExample.Run();
 
 Console.ReadKey();
 
