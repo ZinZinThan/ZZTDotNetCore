@@ -1,4 +1,4 @@
-﻿namespace ZZTDotNetCore.RestApi.Models
+﻿namespace ZZTDotNetCore.ConsoleApp.Models
 {
     public class BlogListResponseModel
     {

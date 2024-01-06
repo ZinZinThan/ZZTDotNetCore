@@ -4,7 +4,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using ZZTDotNetCore.RestApi.Models;
+using ZZTDotNetCore.ConsoleApp.Models;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace ZZTDotNetCore.ConsoleApp.HttpClientExamples
 {
@@ -12,7 +13,9 @@ namespace ZZTDotNetCore.ConsoleApp.HttpClientExamples
     {
         public async Task Run()
         {
-            Read();
+            //await Read();
+            //await Edit(2);
+            await Create("test", "test", "test");
         }
 
         private async Task Read()
@@ -30,6 +33,49 @@ namespace ZZTDotNetCore.ConsoleApp.HttpClientExamples
                     Console.WriteLine(item.Blog_Author);
                     Console.WriteLine(item.Blog_Content);
                 }
+            }
+        }
+
+        public async Task Edit(int id)
+        {
+            HttpClient client = new HttpClient();
+            HttpResponseMessage response = await client.GetAsync($"https://localhost:7062/api/blog/{id}");
+            if (response.IsSuccessStatusCode)
+            {
+                string jsonStr = await response.Content.ReadAsStringAsync();
+                var model = JsonConvert.DeserializeObject<BlogResponseModel>(jsonStr);
+                var item = model!.Data;
+                Console.WriteLine(item.Blog_Id);
+                Console.WriteLine(item.Blog_Title);
+                Console.WriteLine(item.Blog_Author);
+                Console.WriteLine(item.Blog_Content);
+            }
+            else
+            {
+                string jsonStr = await response.Content.ReadAsStringAsync();
+                var model = JsonConvert.DeserializeObject<BlogResponseModel>(jsonStr);
+                Console.WriteLine(model.Message);
+            }
+        }
+
+        public async Task Create(string title, string author, string content)
+        {
+            BlogDataModel blog = new BlogDataModel
+            {
+                Blog_Title = title,
+                Blog_Author = author,
+                Blog_Content = content
+            };
+            string jsonBlog = JsonConvert.SerializeObject(blog);
+            HttpContent httpContent = new StringContent(jsonBlog, Encoding.UTF8, Application.Json);
+
+            HttpClient client = new HttpClient();
+            HttpResponseMessage response = await client.PostAsync("https://localhost:7062/api/blog", httpContent);
+            if (response.IsSuccessStatusCode)
+            {
+                string jsonStr = await response.Content.ReadAsStringAsync();
+                var model = JsonConvert.DeserializeObject<BlogResponseModel>(jsonStr);
+                await Console.Out.WriteLineAsync(model.Message);
             }
         }
     }
