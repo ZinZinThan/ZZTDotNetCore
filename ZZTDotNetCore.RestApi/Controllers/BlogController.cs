@@ -57,7 +57,13 @@ namespace ZZTDotNetCore.RestApi.Controllers
                 var response = new { IsSuccess = false, Message = "No data found." };
                 return NotFound(response);
             }
-            return Ok(item);
+            BlogResponseModel model = new BlogResponseModel
+            {
+                IsSuccess = true,
+                Message = "Success",
+                Data = item
+            };
+            return Ok(model);
         }
 
         [HttpPost]
