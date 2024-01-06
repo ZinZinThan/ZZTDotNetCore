@@ -39,7 +39,7 @@ namespace ZZTDotNetCore.ConsoleApp.HttpClientExamples
             }
         }
 
-        public async Task Edit(int id)
+        private async Task Edit(int id)
         {
             HttpClient client = new HttpClient();
             HttpResponseMessage response = await client.GetAsync($"https://localhost:7062/api/blog/{id}");
@@ -61,7 +61,7 @@ namespace ZZTDotNetCore.ConsoleApp.HttpClientExamples
             }
         }
 
-        public async Task Create(string title, string author, string content)
+        private async Task Create(string title, string author, string content)
         {
             BlogDataModel blog = new BlogDataModel
             {
@@ -82,7 +82,7 @@ namespace ZZTDotNetCore.ConsoleApp.HttpClientExamples
             }
         }
 
-        public async Task Update(int id, string title, string author, string content)
+        private async Task Update(int id, string title, string author, string content)
         {
             BlogDataModel blog = new BlogDataModel
             {
@@ -109,7 +109,7 @@ namespace ZZTDotNetCore.ConsoleApp.HttpClientExamples
             }
         }
 
-        public async Task Delete(int id)
+        private async Task Delete(int id)
         {
             HttpClient client = new HttpClient();
             HttpResponseMessage response = await client.DeleteAsync($"https://localhost:7062/api/blog/{id}");
