@@ -1,3 +1,124 @@
+https://learn.microsoft.com/en-us/aspnet/core/fundamentals/app-state?view=aspnetcore-7.0
+
+```csharp
+var builder = WebApplication.CreateBuilder(args);
+
+builder.Services.AddRazorPages();
+builder.Services.AddControllersWithViews();
+
+builder.Services.AddDistributedMemoryCache(); // add this line
+
+builder.Services.AddSession(options =>
+{
+    options.IdleTimeout = TimeSpan.FromSeconds(10);
+    options.Cookie.HttpOnly = true;
+    options.Cookie.IsEssential = true;
+}); // add this line
+
+var app = builder.Build();
+
+if (!app.Environment.IsDevelopment())
+{
+    app.UseExceptionHandler("/Error");
+    app.UseHsts();
+}
+
+app.UseHttpsRedirection();
+app.UseStaticFiles();
+
+app.UseRouting();
+
+app.UseAuthorization();
+
+app.UseSession(); // add this line
+
+app.MapRazorPages();
+app.MapDefaultControllerRoute();
+
+app.Run();
+```
+
+
+https://www.chartjs.org/docs/latest/getting-started/
+https://www.chartjs.org/docs/latest/samples/information.html
+https://www.chartjs.org/docs/latest/samples/utils.html
+
+https://learn.microsoft.com/en-us/aspnet/core/mvc/views/partial?view=aspnetcore-8.0
+```csharp
+@await Html.PartialAsync("_PartialName.cshtml")
+```
+
+![Alt text](https://uxdworld.com/wp-content/uploads/2018/12/pagination-1.gif)
+
+AsNoTracking = with (nolock)
+
+
+https://github.com/reactiveui/refit
+https://reactiveui.github.io/refit/
+https://www.ezzylearning.net/wp-content/uploads/ASP.NET-Core-Service-Lifetime-Infographic.png
+https://www.c-sharpcorner.com/UploadFile/85ed7a/dependency-injection-in-C-Sharp/
+https://datatables.net/
+
+
+![Alt text](https://www.ezzylearning.net/wp-content/uploads/ASP.NET-Core-Service-Lifetime-Infographic.png)
+
+https://learn.microsoft.com/en-us/ef/core/providers/?tabs=dotnet-core-cli
+https://javabydeveloper.com/wp-content/uploads/2020/02/ORM-object-relational-mapping.png
+https://stackoverflow.com/questions/74451415/asp-net-core-7-0-error-on-login-the-certificate-chain-was-issued-by-an-authorit
+
+.NET     => https://www.nuget.org/
+Frontend => https://www.npmjs.com/
+Flutter  => https://pub.dev/
+Java     => https://mvnrepository.com/
+
+Pull
+Commit (local commit)
+Pull (server update or not?)
+
+https://dillinger.io/
+
+https://www.javatpoint.com/ado-net-tutorial
+> ADO.NET is a module of .Net Framework which is used to establish connection between application and data sources. Data sources can be such as SQL Server and XML. ADO.NET consists of classes that can be used to connect, retrieve, insert and delete data.
+
+https://www.microsoft.com/en-us/sql-server/sql-server-downloads
+
+https://medium.com/@buttertechn/qa-testing-what-is-dev-sit-uat-prod-ac97965ce4f
+
+DEV  — Development [Software developer]
+SIT  — System Integration Test [Software developer and QA engineer]
+UAT  — User Acceptance Test [Client]
+PROD — Production [Public user]
+
+https://www.dotnettricks.com/learn/mvc/viewdata-vs-viewbag-vs-tempdata-vs-session
+
+https://www.ezzylearning.net/wp-content/uploads/ASP.NET-Core-Service-Lifetime-Infographic.png
+
+<base href="/" />
+https://localhost:3000/style.css
+https://localhost:3000/blog/style.css
+https://localhost:3000/user/style.css
+
+<link href="~/style.css" rel="stylesheet" />
+
+https://learn.microsoft.com/en-us/dotnet/core/tools/dotnet-dev-certs
+
+```
+dotnet dev-certs https --trust
+```
+
+ViewBag
+ViewData
+TempData
+
+MVC
+
+Model View Controller
+
+> Controller [Server]
+> View (model)
+> cshtml (csharp cs, html)
+
+Program.cs
 https://www.flaticon.com/
 https://www.w3schools.com/jsref/met_win_clearinterval.asp
 https://datatables.net/examples/index
@@ -70,10 +191,8 @@ switch / toggle
 dark mode
 how to use theme
 
-
-
 Model View Controller
-MVC 
+MVC
 Program.cs
 => home index
 Layout
@@ -81,7 +200,7 @@ Main Layout
 cshtml
 Controller > Action > View (model)
 default => no index => blog = blog/index
-layout => 
+layout =>
 
 // https://localhost:7007/Home/Index
 Controller => Home => Class
@@ -94,14 +213,15 @@ localhost:3000/api/user
 127.0.0.1:3000/api/user
 
 http method
-- get       - read
-- post     - create
-- put      - update
+
+- get - read
+- post - create
+- put - update
 - patch - update
 - delete - delete
 
-http status code 
-200 - ok 
+http status code
+200 - ok
 404 - not found
 500 - internal server error
 400 - bad request
@@ -132,18 +252,17 @@ https://docs.google.com/document/d/1RExSyOKaXB5hTbHZAz64tGJHv4cNz8ktvPcIn6iV298/
 
 ```sql
 CREATE TABLE [dbo].[Tbl_Blog](
-	[Blog_Id] [int] IDENTITY(1,1) NOT NULL,
-	[Blog_Title] [nvarchar](50) NOT NULL,
-	[Blog_Author] [nvarchar](50) NOT NULL,
-	[Blog_Content] [nvarchar](50) NOT NULL,
- CONSTRAINT [PK_Tbl_Blog] PRIMARY KEY CLUSTERED 
+    [Blog_Id] [int] IDENTITY(1,1) NOT NULL,
+    [Blog_Title] [nvarchar](50) NOT NULL,
+    [Blog_Author] [nvarchar](50) NOT NULL,
+    [Blog_Content] [nvarchar](50) NOT NULL,
+ CONSTRAINT [PK_Tbl_Blog] PRIMARY KEY CLUSTERED
 (
-	[Blog_Id] ASC
+    [Blog_Id] ASC
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
 ```
-
 
 ```sh
 - Console App
@@ -153,31 +272,32 @@ GO
 - EF Entity Framework (Code First => Create Table, Database First => use in Code) (CRUD)
 RepoDB
 
-Asp.Net Core Web Api (Rest Api) 
-	Ado.Net
-	- EF
-	Dapper 
-Postman
+- Asp.Net Core Web Api (Rest Api)
+    - EF
+    - Dapper
+    - Ado.Net
+- Postman
+- Html, Css, JavaScript, jQuer Plugins (SweetAlert, Notiflix, Date Picker, DataTable, iCheck, ladda button, Toast)
+- Asp.Net Core MVC
+    - EF
+    - Dapper
+    - Ado.Net
+- Chart [ApexChart, ChartJs, HighCharts, CanvasJS]
+- UI Design
+
 Api Call [Console]
-	HttpClient
-	RestClient
-	Refit
-Asp.Net Core MVC
-	Ado.Net
-	EF
-	Dapper 
+    HttpClient
+    RestClient
+    Refit
 Api Call [MVC]
-	HttpClient
-	RestClient
-	Refit
+    HttpClient
+    RestClient
+    Refit
 Minimal Api
 Text Logging
 Db Logging
 
-Chart [ApexChart, ChartJs, HighCharts, CanvasJS]
-
 SignalR - (Insert Data => UpdateChart, Chat Message)
-UI Design
 Blazor CRUD [Server, WASM]
 ------------------------------------------------------
 Deploy WASM
